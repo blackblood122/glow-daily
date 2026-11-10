@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Glow Daily</title>
+<style>
+:root{--bg:#fff7fa;--card:#fff;--tx:#2a2030;--mu:#85788c;--ac:#e0559a;--ac2:#8a5cf6;--soft:#fdeaf3;--ok:#22a06b;--bd:#f3dfe9;--sh:0 6px 20px rgba(160,60,120,.10)}
+@media(prefers-color-scheme:dark){:root{--bg:#171220;--card:#241c30;--tx:#f6eefa;--mu:#b3a3bd;--ac:#ff7ab8;--ac2:#a98bff;--soft:#352643;--ok:#4fd99b;--bd:#382b47;--sh:none}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,sans-serif;padding:env(safe-area-inset-top) 0 110px}
+.hero{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;padding:22px 20px 26px;border-radius:0 0 30px 30px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hero h1{margin:0;font-size:23px}.hero p{margin:5px 0 0;font-size:13px;opacity:.92}
+.fl{display:inline-block;background:rgba(255,255,255,.22);padding:4px 11px;border-radius:20px;font-size:13px;font-weight:600;margin-top:10px}
+.ring{position:relative;width:92px;height:92px;flex:none}.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:20px}
+.pg{padding:16px;display:none;animation:in .35s}.pg.a{display:block}
+@keyframes in{from{opacity:0;transform:translateY(10px)}}
+h2{font-size:20px;margin:6px 0 4px}.mu,.sub{color:var(--mu);font-size:13px;line-height:1.45}
+.card{background:var(--card);border-radius:20px;padding:14px;margin-bottom:14px;box-shadow:var(--sh);border:1px solid var(--bd)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pill{background:var(--soft);color:var(--ac);border-radius:20px;padding:3px 11px;font-size:12px;font-weight:700}
+.step{display:flex;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--bd);cursor:pointer}
+.step:first-of-type{border-top:0}
+.ck{width:44px;height:44px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:21px;flex:none;transition:.25s}
+.step.on .ck{background:var(--ok);color:#fff;transform:scale(1.08) rotate(-6deg)}
+.step.on b{text-decoration:line-through;opacity:.55}
+.tx small{display:block;color:var(--mu);font-size:12px;margin-top:2px}.tx .tm{color:var(--ac);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border-radius:18px;padding:12px 6px;text-align:center;box-shadow:var(--sh);border:1px solid var(--bd)}
+.stat b{font-size:24px;display:block;color:var(--ac)}.stat span{font-size:11px;color:var(--mu)}
+.bars{display:flex;gap:8px;align-items:flex-end;height:100px;margin-top:10px}
+.bar{flex:1;text-align:center;font-size:11px;color:var(--mu)}.bar i{display:block;background:linear-gradient(var(--ac),var(--ac2));border-radius:8px;margin-bottom:4px}
+.hm{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}.hc{aspect-ratio:1;border-radius:7px;background:var(--soft)}
+.moods{display:flex;gap:8px;margin:10px 0}.mo{flex:1;font-size:26px;border:2px solid transparent;background:var(--soft);border-radius:14px;padding:8px 0;transition:.2s}
+.mo.on{border-color:var(--ac);transform:scale(1.1)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}
+.chip{flex:none;border:0;background:var(--card);color:var(--tx);border-radius:20px;padding:9px 14px;font:600 13px inherit;box-shadow:var(--sh);border:1px solid var(--bd)}
+.chip.on{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent}
+.rc{background:var(--card);border-radius:20px;margin-bottom:12px;box-shadow:var(--sh);border:1px solid var(--bd);overflow:hidden}
+.rh{display:flex;gap:12px;align-items:center;padding:14px;cursor:pointer}.rh div{flex:1}.rh small{display:block;color:var(--mu);font-size:12px;margin-top:3px}
+.re{font-size:30px;background:var(--soft);width:54px;height:54px;border-radius:16px;display:grid;place-items:center}
+.hb{border:0;background:none;font-size:24px;color:var(--ac)}
+.rb{padding:0 16px 16px;animation:in .3s}.rb h4{margin:12px 0 6px;font-size:13px;color:var(--ac);text-transform:uppercase;letter-spacing:.5px}
+.ig{display:flex;gap:8px;align-items:center;padding:5px 0;font-size:14px}.ig input{width:18px;height:18px;accent-color:var(--ac)}
+ol{margin:0;padding-left:20px;font-size:14px;line-height:1.6}.tip{background:var(--soft);padding:10px;border-radius:12px;font-size:13px}
+.tr{display:flex;gap:10px}.main,.ghost{flex:1;border:0;border-radius:14px;padding:13px;font:700 15px inherit}
+.main{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}.ghost{background:var(--soft);color:var(--ac)}
+input[type=time]{font:inherit;padding:9px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+nav{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));display:flex;background:var(--card);border-radius:24px;padding:6px;box-shadow:0 8px 30px rgba(120,40,100,.25);border:1px solid var(--bd);max-width:540px;margin:0 auto}
+nav button{flex:1;border:0;background:none;color:var(--mu);padding:8px 0;font:600 11px inherit;border-radius:18px}nav button.a{background:var(--soft);color:var(--ac)}
+nav span{font-size:20px;display:block}
+#bn{position:fixed;top:calc(10px + env(safe-area-inset-top));left:14px;right:14px;background:var(--tx);color:var(--bg);padding:13px;border-radius:16px;font-weight:600;font-size:14px;transform:translateY(-130%);transition:.35s;z-index:99;text-align:center}#bn.show{transform:none}
+.cf{position:fixed;bottom:90px;font-size:24px;animation:fl 1.5s ease-out forwards;pointer-events:none;z-index:98}@keyframes fl{to{transform:translateY(-65vh) rotate(40deg);opacity:0}}
+</style></head><body>
+<div id="bn"></div>
+<div class="hero"><div><h1 id="gr">Glow Daily</h1><p id="nx"></p><span class="fl" id="sk"></span></div>
+<div class="ring"><svg width="92" height="92"><circle cx="46" cy="46" r="40" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="9"/><circle id="rg" cx="46" cy="46" r="40" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="251.3" style="transition:stroke-dashoffset .6s"/></svg><b id="rn">0/4</b></div></div>
+
+<div class="pg a" id="p-today"><h2>Today’s routine</h2><p class="sub">Tap each step when you finish it.</p>
+<div class="card"><div class="row"><b>☀️ Morning</b><span class="pill" id="amp"></span></div><div id="am"></div></div>
+<div class="card"><div class="row"><b>🌙 Night</b><span class="pill" id="pmp"></span></div><div id="pm"></div></div></div>
+
+<div class="pg" id="p-prog"><h2>Your progress</h2>
+<div class="stats"><div class="stat"><b id="s1">0</b><span>Day streak</span></div><div class="stat"><b id="s2">0%</b><span>Last 7 days</span></div><div class="stat"><b id="s3">0</b><span>Remedies done</span></div></div>
+<div class="card"><b>How does your skin feel today?</b><div class="moods" id="mood"></div><p class="mu" id="mh"></p></div>
+<div class="card"><b>This week</b><div class="bars" id="bars"></div></div>
+<div class="card"><b>Last 28 days</b><div class="hm" id="hm"></div></div></div>
+
+<div class="pg" id="p-rem"><h2>Home remedies 🌿</h2><p class="sub">Pick a concern, tap a remedy, and use the built-in mask timer. Patch-test on your jawline for 24 hours first.</p>
+<div class="chips" id="chips"></div><div id="rl"></div>
+<div class="card mu"><b>Avoid:</b> lemon juice, toothpaste, baking soda and harsh scrubs on the face. Skip masks on salicylic nights.</div></div>
+
+<div class="pg" id="p-set"><h2>Reminders ⏰</h2><p class="sub">Real phone notifications that pop up on top of your screen, even when the app is closed.</p>
+<div class="card"><div class="row"><span>☀️ Morning</span><input type="time" id="amT"></div><br><div class="row"><span>🌙 Night</span><input type="time" id="pmT"></div><br>
+<label class="ig"><input type="checkbox" id="nd"> Send a nudge 30 minutes later</label><br>
+<div class="tr"><button class="main" onclick="sched()">Turn on notifications</button><button class="ghost" onclick="test()">Send test</button></div>
+<p class="mu" id="ns"></p>
+<p class="mu">Tip: in phone Settings → Apps → Glow Daily → Battery, choose “Unrestricted” so reminders always arrive on time.</p></div></div>
+
+<nav><button class="a" data-t="today"><span>✨</span>Today</button><button data-t="prog"><span>📈</span>Progress</button><button data-t="rem"><span>🌿</span>Remedies</button><button data-t="set"><span>⏰</span>Reminders</button></nav>
+
+<script>
+var K="glow2",S={log:{},am:"08:00",pm:"23:30",nudge:true,fav:{},mood:{},rem:{}};
+try{Object.assign(S,JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){}
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function dk(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function mins(t){var p=t.split(":");return +p[0]*60+ +p[1]}
+function fmt(t,a){var m=(mins(t)+a)%1440,h=Math.floor(m/60),ap=h>=12?"PM":"AM";h=h%12||12;return h+":"+("0"+m%60).slice(-2)+" "+ap}
+function day(k){return S.log[k]||(S.log[k]={am:[],pm:[]})}
+function full(k){var L=S.log[k];return !!L&&L.am.length>1&&L.pm.length>1}
+function streak(){var c=new Date(),n=0;if(!full(dk(c)))c.setDate(c.getDate()-1);while(full(dk(c))){n++;c.setDate(c.getDate()-1)}return n}
+function ban(m){var b=$("bn");b.textContent=m;b.classList.add("show");clearTimeout(ban.t);ban.t=setTimeout(function(){b.classList.remove("show")},3500)}
+function vib(){try{navigator.vibrate([200,100,200])}catch(e){}}
+function burst(){for(var i=0;i<16;i++){var s=document.createElement("span");s.className="cf";s.textContent=["✨","💖","🌸","⭐"][i%4];s.style.left=Math.random()*92+"vw";s.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(s);setTimeout(function(x){x.remove()},1900,s)}}
+
+function steps(s){var w=new Date().getDay(),sal=w==1||w==3||w==5;
+return s=="am"?[{n:"Ponds niacinamide face wash",e:"🫧",d:"Lukewarm water, massage 30–60 sec, pat dry."},{n:"Vaseline hyaluron moisturiser",e:"💧",d:"Apply on slightly damp skin."}]
+:[sal?{n:"Minimalist salicylic acid wash",e:"🧪",d:"Mon · Wed · Fri step. Massage 30 sec, rinse well."}:{n:"Ponds niacinamide face wash",e:"🫧",d:"Gentle night wash. Salicylic is for Mon, Wed, Fri."},{n:"Vaseline Gluta-Hya cream",e:"✨",d:"Thin layer on face and neck."}]}
+
+function R(){var k=dk(new Date()),L=day(k),n=L.am.length+L.pm.length,now=new Date(),h=now.getHours(),nm=h*60+now.getMinutes();
+["am","pm"].forEach(function(s){var el=$(s);el.innerHTML="";
+steps(s).forEach(function(st,i){var on=L[s].indexOf(i)>-1,d=document.createElement("div");d.className="step"+(on?" on":"");
+d.innerHTML='<div class="ck">'+(on?"✓":st.e)+'</div><div class="tx"><small class="tm">'+fmt(S[s],i*10)+'</small><b>'+st.n+'</b><small>'+st.d+'</small></div>';
+d.onclick=function(){var a=L[s],j=a.indexOf(i);if(j>-1)a.splice(j,1);else a.push(i);save();var m=L.am.length+L.pm.length;R();P();if(m==4&&j<0)burst()};
+el.appendChild(d)});$(s+"p").textContent=L[s].length+"/2"});
+$("rg").style.strokeDashoffset=251.3*(1-n/4);$("rn").textContent=n+"/4";
+$("gr").textContent=(h<12?"Good morning":h<18?"Good afternoon":"Good evening")+" ✨";
+$("nx").textContent=n==4?"All done today 🎉":"Next: "+(nm<mins(S.am)?"morning at "+fmt(S.am,0):nm<mins(S.pm)?"night at "+fmt(S.pm,0):"tomorrow "+fmt(S.am,0));
+$("sk").textContent="🔥 "+streak()+" day streak"}
+
+var MO=["😣","😕","😐","🙂","🤩"];
+function mood(i){S.mood[dk(new Date())]=i;save();P()}
+function P(){var b="",g="",t=0,i,x,L,c,k=dk(new Date()),pf=0,r=0,mh="";
+for(i=6;i>=0;i--){x=new Date();x.setDate(x.getDate()-i);L=S.log[dk(x)]||{am:[],pm:[]};c=L.am.length+L.pm.length;t+=c;b+='<div class="bar"><i style="height:'+(c*20+4)+'px"></i>'+"SMTWTFS"[x.getDay()]+'</div>';var m=S.mood[dk(x)];mh+=(m>=0?MO[m]:"·")+" "}
+for(i=27;i>=0;i--){x=new Date();x.setDate(x.getDate()-i);L=S.log[dk(x)]||{am:[],pm:[]};c=L.am.length+L.pm.length;g+='<div class="hc" style="'+(c?"background:var(--ac);opacity:"+(.3+c*.175):"")+'"></div>'}
+Object.keys(S.rem).forEach(function(q){r+=S.rem[q]});
+$("bars").innerHTML=b;$("hm").innerHTML=g;$("s1").textContent=streak();$("s2").textContent=Math.round(t/28*100)+"%";$("s3").textContent=r;
+$("mood").innerHTML=MO.map(function(e,j){return '<button class="mo'+(S.mood[k]===j?" on":"")+'" onclick="mood('+j+')">'+e+'</button>'}).join("");
+$("mh").textContent="Last 7 days: "+mh}
+
+var RM=[
+{n:"Aloe Soother",e:"🌿",c:["Dryness","Redness","Pimples"],t:15,f:"2–3× a week",i:["2 tbsp pure aloe vera gel"],s:["Wash your face and pat dry.","Spread a thin layer on face, avoiding eyes.","Relax for the timer, then rinse with cool water."],tip:"Lovely the day after a salicylic wash."},
+{n:"Honey Glow",e:"🍯",c:["Dullness","Pimples"],t:15,f:"1–2× a week",i:["1 tbsp raw honey","Warm water"],s:["Wash face with Ponds and pat dry.","Smooth honey over damp skin.","Wait for the timer, then rinse with lukewarm water."],tip:"Honey is mildly antibacterial and keeps skin soft."},
+{n:"Oats & Yogurt Calm",e:"🥣",c:["Dryness","Redness","Dullness"],t:10,f:"Once a week",i:["1 tbsp finely ground oats","1 tbsp plain yogurt"],s:["Mix to a smooth paste.","Apply gently, no rubbing.","After the timer, massage lightly and rinse."],tip:"Oats calm irritated, tight skin."},
+{n:"Green Tea Compress",e:"🍵",c:["Pimples","Puffy eyes","Redness"],t:10,f:"3× a week",i:["1 green tea bag","Cool water"],s:["Brew the bag and let it cool completely.","Press on blemishes or closed eyes.","Hold until the timer ends, then pat dry."],tip:"Keep it in the fridge for an extra cooling effect."},
+{n:"Cucumber Cooler",e:"🥒",c:["Puffy eyes","Dullness"],t:10,f:"After late nights",i:["Chilled cucumber, 4 slices"],s:["Lie back and close your eyes.","Place slices over eyes or cheeks.","Swap for fresh ones halfway."],tip:"Perfect after long study sessions."},
+{n:"Rose Water Mist",e:"🌹",c:["Dryness","Dullness"],t:1,f:"Daily, before moisturiser",i:["Pure rose water in a spray bottle"],s:["Close your eyes and mist 2–3 times.","Pat in lightly.","Follow with your moisturiser."],tip:"Choose pure rose water with no added fragrance."}];
+var cf="All",op=-1,T={};
+function setCf(c){cf=c;op=-1;RE()}
+function tg(x){op=op==x?-1:x;RE()}
+function fv(x){S.fav[x]=!S.fav[x];save();RE()}
+function tl(x){var t=T[x],s=t?t.left:RM[x].t*60;return(t&&t.id?"⏸ ":"▶ ")+Math.floor(s/60)+":"+("0"+s%60).slice(-2)}
+function tm(x){var t=T[x]||(T[x]={left:RM[x].t*60,id:0}),l=LN();
+if(t.id){clearInterval(t.id);t.id=0;if(l)l.cancel({notifications:[{id:900+x}]}).catch(function(){})}
+else{t.id=setInterval(function(){t.left--;if(t.left<=0){clearInterval(t.id);t.id=0;t.left=RM[x].t*60;vib();ban("⏰ "+RM[x].n+" is done. Rinse off!")}var b=$("tb"+x);if(b)b.textContent=tl(x)},1000);
+if(l)l.schedule({notifications:[{id:900+x,title:"⏰ Mask time is up",body:"Rinse off your "+RM[x].n,channelId:"skin",schedule:{at:new Date(Date.now()+t.left*1000),allowWhileIdle:true}}]}).catch(function(){})}
+var b=$("tb"+x);if(b)b.textContent=tl(x)}
+function dn(x){var k=dk(new Date());S.rem[k]=(S.rem[k]||0)+1;save();P();ban("🌿 Logged! Great self-care.");burst()}
+function card(r,x){var o=op==x;return '<div class="rc"><div class="rh" onclick="tg('+x+')"><span class="re">'+r.e+'</span><div><b>'+r.n+'</b><small>'+r.c.join(" · ")+' · '+r.f+'</small></div><button class="hb" onclick="event.stopPropagation();fv('+x+')">'+(S.fav[x]?"❤":"♡")+'</button></div>'+
+(o?'<div class="rb"><h4>You need</h4>'+r.i.map(function(t){return '<label class="ig"><input type="checkbox"> '+t+'</label>'}).join("")+'<h4>Steps</h4><ol>'+r.s.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ol><p class="tip">💡 '+r.tip+'</p><div class="tr"><button class="main" id="tb'+x+'" onclick="tm('+x+')">'+tl(x)+'</button><button class="ghost" onclick="dn('+x+')">Done ✓</button></div></div>':'')+'</div>'}
+function RE(){$("chips").innerHTML=["All","Dryness","Pimples","Dullness","Puffy eyes","Redness","❤ Saved"].map(function(c){return '<button class="chip'+(c==cf?" on":"")+'" onclick="setCf(this.textContent)">'+c+'</button>'}).join("");
+var l=[];RM.forEach(function(r,x){if(cf=="All"||(cf=="❤ Saved"?S.fav[x]:r.c.indexOf(cf)>-1))l.push(card(r,x))});
+$("rl").innerHTML=l.length?l.join(""):'<p class="mu">Nothing here yet. Tap ♡ on a remedy to save it.</p>'}
+
+function LN(){return window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.LocalNotifications}
+function item(id,t,b,w,m){if(m>=1440){m-=1440;w=w%7+1}return{id:id,title:t,body:b,channelId:"skin",schedule:{on:{weekday:w,hour:Math.floor(m/60),minute:m%60},allowWhileIdle:true}}}
+async function sched(){var l=LN(),st=$("ns");
+if(!l){st.textContent="Install the app (APK) to get phone notifications.";return}
+try{var p=await l.requestPermissions();
+if(p.display!=="granted"){st.textContent="Notifications are blocked. Allow them in phone Settings → Apps → Glow Daily.";return}
+await l.createChannel({id:"skin",name:"Skincare reminders",importance:5,visibility:1,vibration:true});
+var q=await l.getPending(),old=q.notifications.filter(function(n){return n.id<900}).map(function(n){return{id:n.id}});
+if(old.length)await l.cancel({notifications:old});
+var a=[];
+for(var w=1;w<=7;w++){var sal=(w==2||w==4||w==6);
+[["am",100,"☀️ Morning skincare","Ponds wash, then your hyaluron moisturiser. 5 minutes!"],["pm",200,"🌙 Night skincare",sal?"Salicylic wash night! Then Gluta-Hya cream.":"Ponds wash, then Gluta-Hya cream."]].forEach(function(z){
+var m=mins(S[z[0]]);a.push(item(z[1]+w,z[2],z[3],w,m));
+if(S.nudge)a.push(item(z[1]+w+10,"⏳ Still pending",z[2].slice(3)+" isn’t done yet. Tap to finish and keep your streak 🔥",w,m+30))})}
+await l.schedule({notifications:a});
+st.textContent="✅ Scheduled: "+fmt(S.am,0)+" and "+fmt(S.pm,0)+(S.nudge?", with a nudge 30 min later.":".")}
+catch(e){st.textContent="Couldn’t schedule: "+(e.message||e)}}
+async function test(){var l=LN();if(!l){ban("Install the app to test notifications");return}
+try{await l.requestPermissions();await l.createChannel({id:"skin",name:"Skincare reminders",importance:5,visibility:1,vibration:true});
+await l.schedule({notifications:[{id:999,title:"✨ Glow Daily test",body:"Notifications work! You can close the app now.",channelId:"skin",schedule:{at:new Date(Date.now()+5000),allowWhileIdle:true}}]});ban("Test arrives in 5 seconds. Close the app!")}catch(e){ban(e.message||"Failed")}}
+
+$("amT").value=S.am;$("pmT").value=S.pm;$("nd").checked=S.nudge;
+$("amT").onchange=function(){S.am=this.value;save();R();sched()};
+$("pmT").onchange=function(){S.pm=this.value;save();R();sched()};
+$("nd").onchange=function(){S.nudge=this.checked;save();sched()};
+document.querySelectorAll("nav button").forEach(function(b){b.onclick=function(){
+document.querySelectorAll("nav button,.pg").forEach(function(x){x.classList.remove("a")});
+b.classList.add("a");$("p-"+b.dataset.t).classList.add("a");window.scrollTo(0,0)}});
+document.addEventListener("visibilitychange",function(){if(!document.hidden)R()});
+R();P();RE();sched();
+</script></body></html>
